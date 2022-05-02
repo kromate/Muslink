@@ -1,4 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
+import "@/assets/styles/tailwind.css";
+import { router as setupRouter } from "@/router";
 
-createApp(App).mount('#app')
+const init = async () => {
+    const router = await setupRouter;
+    const app = createApp(App);
+    // await router.isReady()
+
+    app.use(router).mount("#app");
+};
+
+init().then();
