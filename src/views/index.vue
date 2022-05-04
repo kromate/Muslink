@@ -76,7 +76,7 @@ onMounted(()=>{
 		video.addEventListener('loadedmetadata', () => {
 			video.play()
 		})
-		videoGrid.append(video)
+		videoGrid!.append(video)
 	}
 
 })
