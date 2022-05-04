@@ -6,6 +6,8 @@
 
 * {
   font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -21,7 +23,7 @@
   border-radius: 40px;
   cursor: pointer;
 }
-
+ 
 @layer components {
   .btn {
     @apply flex items-center justify-center px-6 py-2 text-base font-medium leading-6 text-white bg-primary rounded-full;

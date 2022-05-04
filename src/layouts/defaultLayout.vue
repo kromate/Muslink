@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-dark min-h-screen overflow-hidden ">
+	<div class="min-h-screen overflow-hidden bg">
 		<PageLoading />
 		<Alert />
 		<slot />
@@ -12,6 +12,8 @@ import Alert from '@/components/core/Alert.vue'
 </script>
 
 <style scoped>
-
+.bg{
+	background:  rgba(0, 0, 0, 0.178) url('../assets/image/bg.svg');
+}
 </style>
  
