@@ -21,29 +21,18 @@ const io = socketio(server, {
 
 
 
-io.on('connection', (socket) => {
-  const handlerSocket = new socketHandler(io, socket)
-  // const handlerRooms = new roomHandler(io, socket)
-  // const handlerGames = new gameHandler(io, socket)
+io.on('connection', async (socket) => {
+  socket.on('join-room', async (roomId, userId) => {
+    console.log(roomId, 'room')
+    console.log(userId, 'user')
+    await socket.join(roomId)
 
-  handlerSocket.connected()
+    socket.to(roomId).emit('user-connected', userId)
 
-  socket.on('join_game', (message) => {
-    // handlerRooms.joinGame(message)
+    socket.on('disconnect', () => {
+      socket.to(roomId).emit('user-disconnected', userId)
+    })
   })
-
-  socket.on('update_game', (message) => {
-    // handlerGames.updateGame(message)
-  })
-
-  socket.on('game_win', (message) => {
-    // handlerGames.gameWin(message)
-  })
-
-
-
-
-
 })
 
 
