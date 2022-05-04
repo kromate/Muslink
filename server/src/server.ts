@@ -23,8 +23,8 @@ const io = socketio(server, {
 
 io.on('connection', async (socket) => {
   socket.on('join-room', async (roomId, userId) => {
-    console.log(roomId, 'room')
-    console.log(userId, 'user')
+    // console.log(roomId, 'room')
+    // console.log(userId, 'user')
     await socket.join(roomId)
 
     socket.to(roomId).emit('user-connected', userId)

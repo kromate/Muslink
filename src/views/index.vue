@@ -23,7 +23,7 @@ import Peer from 'peerjs'
 
 onMounted(()=>{
 
-	const socket = io('http://localhost:9000/')
+	const socket = io('https://muslink.herokuapp.com/')
 	const videoGrid = document.getElementById('video-grid')
 	const myPeer = new Peer()
 	const myVideo = document.createElement('video')
