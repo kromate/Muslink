@@ -13,7 +13,7 @@ import Alert from '@/components/core/Alert.vue'
 
 <style scoped>
 .bg{
-	background:  rgba(0, 0, 0, 0.178) url('../assets/image/bg.svg');
+	background:  rgba(0, 0, 0, 0.5) url('../assets/image/bg.svg');
 }
 </style>
  
