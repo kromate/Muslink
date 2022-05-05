@@ -29,6 +29,7 @@
 				<div class="flex flex-row gap-6 text-slate-100">
 					<a href="" class="hover:text-primary-200 cursor-pointer">Github</a>
 					<a href="" class="ml-2 hover:text-primary-200 cursor-pointer">Twitter</a>
+					<a href="" class="ml-2 hover:text-primary-200 cursor-pointer">Youtube</a>
 				
 				</div>
 			</div>
