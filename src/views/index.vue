@@ -1,15 +1,38 @@
 <template>
 	<default-layout>
-		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="video-grid">
-			<!-- <div class="w-1/2 min-h-[500px] bg-slate-800">
-
-			</div> -->
-
-			<div ></div>
-
-			<!-- <div class="w-1/2 bg-slate-800">
-
-			</div> -->
+		<div class="flex flex-col justify-center w-full h-screen">
+	
+			<div class="flex justify-center sm:hidden">
+				<img src="../assets/image/logo.svg" alt="logo" class="h-14">
+			</div>
+			<div class="flex mx-auto my-12 flex-col p-10 py-16 gap-5 bg-[#0d2036] text-white sm:rounded-lg z-10 sm:w-[400px] w-full">
+				<div class="flex gap-2 flex-col">
+					<span class="text-[28px] font-bold">Welcome</span>
+					<div class="flex-wrap">
+						Have Fun chatting with friends and listening to conversations
+					</div>
+				</div>
+				<div class="flex flex-col gap-4">
+					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" >
+						Create a Room
+					</button>
+					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" >
+						Join a Room
+					</button>
+				
+				</div>
+			</div>
+			<div class="flex flex-row absolute bottom-0 w-full justify-between px-5 py-5 mt-auto items-center sm:px-7">
+				<div class="hidden sm:flex">
+					<img src="../assets/image/logo.svg" alt="logo" class="h-10">
+				</div>
+				<div class="flex flex-row gap-6 text-slate-100">
+					<a href="" class="hover:text-primary-200 cursor-pointer">Github</a>
+					<a href="" class="ml-2 hover:text-primary-200 cursor-pointer">Twitter</a>
+					<a href="" class="ml-2 hover:text-primary-200 cursor-pointer">Youtube</a>
+				
+				</div>
+			</div>
 		</div>
 	</default-layout>
 
@@ -17,78 +40,14 @@
 
 <script setup lang="ts">
 import defaultLayout from '@/layouts/defaultLayout.vue'
-import { onMounted } from 'vue'
 import {io} from 'socket.io-client'
 import Peer from 'peerjs'
 
-onMounted(()=>{
 
-	const socket = io('https://muslink.herokuapp.com/')
-	const videoGrid = document.getElementById('video-grid')
-	const myPeer = new Peer()
-	const myVideo = document.createElement('video')
-	const ROOM_ID = '12345'
-	myVideo.muted = true
-	const peers = {}
-	navigator.mediaDevices.getUserMedia({
-		video: true,
-		audio: true
-	}).then((stream) => {
-		addVideoStream(myVideo, stream)
-
-		myPeer.on('call', (call) => {
-			call.answer(stream)
-			const video = document.createElement('video')
-			call.on('stream', (userVideoStream) => {
-				addVideoStream(video, userVideoStream)
-			})
-		})
-
-		socket.on('user-connected', (userId) => {
-			connectToNewUser(userId, stream) 
-		})
-	})
-
-	socket.on('user-disconnected', (userId) => {
-		if (peers[userId]) peers[userId].close()
-	})
-
-	myPeer.on('open', (id) => {
-		console.log(id)
-		socket.emit('join-room', ROOM_ID, id)
-	})
-
-	function connectToNewUser(userId, stream) {
-		const call = myPeer.call(userId, stream)
-		const video = document.createElement('video')
-		call.on('stream', (userVideoStream) => {
-			addVideoStream(video, userVideoStream)
-		})
-		call.on('close', () => {
-			video.remove()
-		})
-
-		peers[userId] = call
-	}
-
-	function addVideoStream(video, stream) {
-		video.srcObject = stream
-		video.addEventListener('loadedmetadata', () => {
-			video.play()
-		})
-		videoGrid!.append(video)
-	}
-
-})
 </script>
 
   <style>
 
     
-    video {
-      width: 100%;
-      height: 100%;
-	  max-width: 300px;
-      object-fit: cover;
-    }
+
   </style>
