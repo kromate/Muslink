@@ -1,8 +1,12 @@
 <template>
 	<default-layout>
-		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="video-grid">
-			<div class=" bg-slate-800">
+		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" >
+                
+			<div class=" bg-slate-800 rounded-md p-2" v-for="n in 10" :key="n">
 				<img src="../assets/avatar.png" alt="avatar" class="w-10 h-10 rounded-full">
+				<div id="controls" class="flex ">
+					<i class="las la-speaker  text-black cursor-pointer" ></i>
+				</div>
 			</div>
 
 		
@@ -13,29 +17,31 @@
 
 <script setup lang="ts">
 import defaultLayout from '@/layouts/defaultLayout.vue'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import {io} from 'socket.io-client'
 import Peer from 'peerjs'
+import { useRoute } from 'vue-router'
 
+const member = ref([])
 onMounted(()=>{
 	const socket = io('http://localhost:9000/')
-	const videoGrid = document.getElementById('video-grid')
+
 	const myPeer = new Peer()
-	const myVideo = document.createElement('video')
-	const ROOM_ID = '12345'
+	const myVideo = document.createElement('audio')
+	const ROOM_ID = useRoute().params.id
 	myVideo.muted = true
 	const peers = {}
 	navigator.mediaDevices.getUserMedia({
-		video: false,
+		audio: false,
 		audio: true
 	}).then((stream) => {
 		addVideoStream(myVideo, stream)
 
 		myPeer.on('call', (call) => {
 			call.answer(stream)
-			const video = document.createElement('video')
+			const audio = document.createElement('audio')
 			call.on('stream', (userVideoStream) => {
-				addVideoStream(video, userVideoStream)
+				addVideoStream(audio, userVideoStream)
 			})
 		})
 
@@ -55,23 +61,23 @@ onMounted(()=>{
 
 	function connectToNewUser(userId, stream) {
 		const call = myPeer.call(userId, stream)
-		const video = document.createElement('video')
+		const audio = document.createElement('audio')
 		call.on('stream', (userVideoStream) => {
-			addVideoStream(video, userVideoStream)
+			addVideoStream(audio, userVideoStream)
 		})
 		call.on('close', () => {
-			video.remove()
+			audio.remove()
 		})
 
 		peers[userId] = call
 	}
 
-	function addVideoStream(video, stream) {
-		video.srcObject = stream
-		video.addEventListener('loadedmetadata', () => {
-			video.play()
+	function addVideoStream(audio, stream) {
+		audio.srcObject = stream
+		audio.addEventListener('loadedmetadata', () => {
+			audio.play()
 		})
-		videoGrid!.append(video)
+		audioGrid!.append(audio)
 	}
 
 })
@@ -80,7 +86,7 @@ onMounted(()=>{
   <style>
 
     
-    video {
+    audio {
       width: 100%;
       height: 100%;
 	  max-width: 300px;
