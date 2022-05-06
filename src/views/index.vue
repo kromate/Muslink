@@ -13,11 +13,10 @@
 					</div>
 				</div>
 				<div class="flex flex-col gap-4">
-					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" 
-						@click="useUserModal().openUserName()"
+					<router-link :to='`/${uuidv4()}`'  class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" 
 					>
 						Create a Room
-					</button>
+					</router-link>
 					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" >
 						Join a Room
 					</button>
@@ -43,6 +42,7 @@
 <script setup lang="ts">
 import { useUserModal } from '@/composables/core/modals'
 import defaultLayout from '@/layouts/defaultLayout.vue'
+import {v4 as uuidv4} from 'uuid'
 
 
 </script>

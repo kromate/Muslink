@@ -22,8 +22,7 @@ import {io} from 'socket.io-client'
 import Peer from 'peerjs'
 
 onMounted(()=>{
-
-	const socket = io('https://muslink.herokuapp.com/')
+	const socket = io('http://localhost:9000/')
 	const videoGrid = document.getElementById('video-grid')
 	const myPeer = new Peer()
 	const myVideo = document.createElement('video')
@@ -31,7 +30,7 @@ onMounted(()=>{
 	myVideo.muted = true
 	const peers = {}
 	navigator.mediaDevices.getUserMedia({
-		video: true,
+		video: false,
 		audio: true
 	}).then((stream) => {
 		addVideoStream(myVideo, stream)
