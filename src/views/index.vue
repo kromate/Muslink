@@ -41,10 +41,8 @@
 </template>
 
 <script setup lang="ts">
-// import { useUserModal } from '@/composables/core/modals'
+import { useUserModal } from '@/composables/core/modals'
 import defaultLayout from '@/layouts/defaultLayout.vue'
-
-
 
 
 </script>

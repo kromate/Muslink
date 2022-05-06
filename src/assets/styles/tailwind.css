@@ -46,4 +46,10 @@
   .badge{
   @apply  text-xs px-3  rounded-full py-[0.2rem] flex justify-center items-center
   }
+    .input{
+        @apply  border border-black  py-4 px-6 rounded-xl min-h-[3.2rem] lg:min-w-[7.75rem] max-w-full   outline-none
+    }
+    .field{
+  @apply flex flex-col w-full mt-5
+}
 }

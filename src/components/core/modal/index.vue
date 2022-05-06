@@ -4,12 +4,11 @@
 			:close="closeModal"
 			class="bg transition-all"
 		>
-			<div v-if="type === 'normal'" class=" bg-white   py-4 px-6 rounded-lg overflow-hidden shadow-xl transform transition-all w-full max-w-[76%] sm:max-w-lg ">
+			<div  class=" bg-white   py-4 px-6 rounded-lg overflow-hidden shadow-xl transform transition-all w-full max-w-[85%] sm:max-w-lg ">
 				<div class="flex w-full justify-between">
 					<div class="flex flex-col items-center relative w-full">
 						<div class="w-full flex">
-							<Icon name="close" class="text-black absolute right-[10px] top-[10px] cursor-pointer" size="s" @click.prevent="closeModal" />
-
+							<i class="las la-times text-2xl text-black absolute right-[10px] top-[1px] cursor-pointer" @click.prevent="closeModal"></i>
 							<h2 class="font-semibold text-xl text-center mx-auto mt-2">
 								{{ title }}
 							</h2>
@@ -18,24 +17,7 @@
 					</div>
 				</div>
 			</div>
-			<div v-else-if="type === 'settings'" class="h-screen bg-white max-w-[79%]  w-[190rem]  fixed py-9 px-12 right-0">
-				<div class="flex w-full justify-between">
-					<div class="flex items-center">
-						<div class="btn-outline-2 mr-6 cursor-pointer" @click="closeModal">
-							<Icon
-								name="downArrow"
-								size="s"
-								class="rotate-90"
-								@click.prevent="closeModal"
-							/>
-							close
-						</div>
-						<h2 class="font-semibold text-xl text-center mx-auto mt-2">
-							{{ title }}
-						</h2>
-					</div>
-				</div>
-			</div>
+		
 		</div>
 	</transition>
 </template>
@@ -52,10 +34,7 @@ const props = defineProps({
 		type: String,
 		required: false
 	},
-	type: {
-		type: String,
-		default: 'normal'
-	}
+
 })
 
 const closeModal = () => {
