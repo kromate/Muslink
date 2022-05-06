@@ -13,7 +13,9 @@
 					</div>
 				</div>
 				<div class="flex flex-col gap-4">
-					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" >
+					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" 
+						@click="useUserModal().openUserName()"
+					>
 						Create a Room
 					</button>
 					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" >
@@ -22,7 +24,7 @@
 				
 				</div>
 			</div>
-			<div class="flex flex-row absolute bottom-0 w-full justify-between px-5 py-5 mt-auto items-center sm:px-7">
+			<div class="flex flex-row absolute bottom-0 w-full sm:justify-between justify-center px-5 py-5 mt-auto items-center sm:px-7">
 				<div class="hidden sm:flex">
 					<img src="../assets/image/logo.svg" alt="logo" class="h-10">
 				</div>
@@ -39,9 +41,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUserModal } from '@/composables/core/modals'
 import defaultLayout from '@/layouts/defaultLayout.vue'
-import {io} from 'socket.io-client'
-import Peer from 'peerjs'
 
 
 </script>
