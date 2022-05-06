@@ -13,7 +13,9 @@
 					</div>
 				</div>
 				<div class="flex flex-col gap-4">
-					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" >
+					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" 
+						@click="useUserModal().openUserName()"
+					>
 						Create a Room
 					</button>
 					<button class=" outline-none text-center py-4 px-6 text-sm rounded-lg  bg-slate-700 hover:bg-slate-600  font-bold  mt-2" >
@@ -39,9 +41,10 @@
 </template>
 
 <script setup lang="ts">
+// import { useUserModal } from '@/composables/core/modals'
 import defaultLayout from '@/layouts/defaultLayout.vue'
-import {io} from 'socket.io-client'
-import Peer from 'peerjs'
+
+
 
 
 </script>
