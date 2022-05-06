@@ -7,7 +7,7 @@
 			<div class="flex items-center justify-center w-full" />
 			<div class="flex w-full justify-end mt-6" />
 			<transition name="slideUp" appear>
-				<form class="w-full overflow-y-auto" @submit.prevent="create">
+				<form class="w-full overflow-y-auto" @submit.prevent="">
 					<div class="flex flex-col mt-2 ">
 						<div class="field">
 							<label for="bvn" class="font-medium text-base text-litBlack mb-3">
@@ -25,8 +25,8 @@
 					
 					</div>
 
-					<button class="btn bg-primary text-white self-end px-7 min-w-[140px] mt-5  text-sm !py-3" :disabled="loading">
-						<span v-if="!loading"> Submit</span>  <Spinner v-else click="ml-6" />
+					<button class="btn bg-primary text-white self-end px-7 min-w-[140px] mt-5  text-sm !py-3" :disabled="false">
+						<span v-if="true"> Submit</span>  <Spinner v-else  />
 					</button>
 				</form>
 			</transition>
