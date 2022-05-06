@@ -55,7 +55,6 @@ onMounted(()=>{
 	})
 
 	myPeer.on('open', (id) => {
-		console.log(id)
 		socket.emit('join-room', ROOM_ID, id)
 	})
 
@@ -63,7 +62,7 @@ onMounted(()=>{
 		const call = myPeer.call(userId, stream)
 		const audio = document.createElement('audio')
 		call.on('stream', (userVideoStream) => {
-			addStream(audio, userVideoStream)
+			addStream(audio, userVideoStream, audio)
 		})
 		call.on('close', () => {
 			audio.remove()

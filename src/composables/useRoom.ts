@@ -3,4 +3,8 @@ export const addStream = (audio, stream, ref) => {
     audio.addEventListener('loadedmetadata', () => {
         audio.play()
     })
+
+    ref.value.append(audio)
+
+    console.log(ref.value)
 }
