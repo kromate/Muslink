@@ -1,7 +1,7 @@
 <template>
 	<default-layout>
-		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" >
-                
+		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="audioGrid" ref="audio" >
+
 			<div class=" bg-slate-800 rounded-md p-2" v-for="n in 10" :key="n">
 				<img src="../assets/avatar.png" alt="avatar" class="w-10 h-10 rounded-full">
 				<div id="controls" class="flex ">
@@ -21,27 +21,27 @@ import { onMounted, ref } from 'vue'
 import {io} from 'socket.io-client'
 import Peer from 'peerjs'
 import { useRoute } from 'vue-router'
+import {addStream} from '@/composables/useRoom'
 
 const member = ref([])
+const audio = ref(null)
 onMounted(()=>{
 	const socket = io('http://localhost:9000/')
 
 	const myPeer = new Peer()
 	const myVideo = document.createElement('audio')
 	const ROOM_ID = useRoute().params.id
-	myVideo.muted = true
 	const peers = {}
 	navigator.mediaDevices.getUserMedia({
-		audio: false,
 		audio: true
 	}).then((stream) => {
-		addVideoStream(myVideo, stream)
+		addStream(myVideo, stream, audio)
 
 		myPeer.on('call', (call) => {
 			call.answer(stream)
 			const audio = document.createElement('audio')
 			call.on('stream', (userVideoStream) => {
-				addVideoStream(audio, userVideoStream)
+				addStream(audio, userVideoStream, audio)
 			})
 		})
 
@@ -63,7 +63,7 @@ onMounted(()=>{
 		const call = myPeer.call(userId, stream)
 		const audio = document.createElement('audio')
 		call.on('stream', (userVideoStream) => {
-			addVideoStream(audio, userVideoStream)
+			addStream(audio, userVideoStream)
 		})
 		call.on('close', () => {
 			audio.remove()
@@ -72,13 +72,7 @@ onMounted(()=>{
 		peers[userId] = call
 	}
 
-	function addVideoStream(audio, stream) {
-		audio.srcObject = stream
-		audio.addEventListener('loadedmetadata', () => {
-			audio.play()
-		})
-		audioGrid!.append(audio)
-	}
+
 
 })
 </script>
