@@ -1,15 +1,11 @@
 <template>
 	<default-layout>
 		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="video-grid">
-			<!-- <div class="w-1/2 min-h-[500px] bg-slate-800">
+			<div class=" bg-slate-800">
+				<img src="../assets/avatar.png" alt="avatar" class="w-10 h-10 rounded-full">
+			</div>
 
-			</div> -->
-
-			<div ></div>
-
-			<!-- <div class="w-1/2 bg-slate-800">
-
-			</div> -->
+		
 		</div>
 	</default-layout>
 
