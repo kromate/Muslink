@@ -24,7 +24,7 @@
 				
 				</div>
 			</div>
-			<div class="flex flex-row absolute bottom-0 w-full justify-between px-5 py-5 mt-auto items-center sm:px-7">
+			<div class="flex flex-row absolute bottom-0 w-full sm:justify-between justify-center px-5 py-5 mt-auto items-center sm:px-7">
 				<div class="hidden sm:flex">
 					<img src="../assets/image/logo.svg" alt="logo" class="h-10">
 				</div>

@@ -1,7 +1,7 @@
 <template>
 	<Modal
 		modal="$atts.modal"
-		title="	Create Customer"
+		title="Enter Your Name"
 	>
 		<div class="flex flex-col w-full h-full justify-between">
 			<div class="flex items-center justify-center w-full" />
@@ -11,30 +11,18 @@
 					<div class="flex flex-col mt-2 ">
 						<div class="field">
 							<label for="bvn" class="font-medium text-base text-litBlack mb-3">
-								Select Customers
+								Your Name
 							</label>
 							<input
 								id="Customer"
 								type="text"
 								name="Customer"
 								class="input"
-								placeholder="Customer List"
+								placeholder="Kromate"
 								required
 							>
 						</div>
-						<div class="field">
-							<label for="bvn" class="font-medium text-base text-litBlack mb-3">
-								Currency
-							</label>
-							<input
-								id="currency"
-								type="text"
-								name="currency"
-								class="input"
-								placeholder="Your Currency"
-								required
-							>
-						</div>
+					
 					</div>
 
 					<button class="btn bg-primary text-white self-end px-7 min-w-[140px] mt-5  text-sm !py-3" :disabled="loading">
