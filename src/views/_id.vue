@@ -5,7 +5,7 @@
 			<div class=" bg-[#3c4043] text-white rounded-md p-4 min-w-[234px] h-[132px] flex flex-col justify-center items-center relative " v-for="n in 10" :key="n">
 				<img src ='../assets/avatar.png' alt="avatar" class="w-20 h-20 rounded-full" >
 				<div id="controls" class="flex mt-4 text-2xl text-white px-3 justify-between">
-					<i :class="[`las la-${allowMic ? 'microphone' :'microphone-slash'}`, 'cursor-pointer absolute bg-slate-600 p-2 rounded-full top-3 right-3']"> </i>
+					<i :class="[`las la-${allowMic ? 'microphone' :'microphone-slash'}`, 'cursor-pointer absolute bg-slate-600 p-2 rounded-full top-3 right-3']" @click="toggleMic"> </i>
 
 				</div>
 			</div>
@@ -26,9 +26,23 @@ import {addStream} from '@/composables/useRoom'
 
 const member = ref([])
 const audio = ref(null)
-const allowMic = ref(false)
+const allowMic = ref(true)
+const userStream = ref()
 // const URL = 'https://muslink.herokuapp.com/'
 const URL = 'http://localhost:9000/'
+
+const toggleMic = ()=>{
+	const audioTrack = userStream.value.getTracks().find((track) => track.kind === 'audio')
+	   if (audioTrack.enabled) {
+		audioTrack.enabled = false
+		allowMic.value = false
+	} else {
+		audioTrack.enabled = true
+		allowMic.value = true
+	}
+
+}
+
 onMounted(()=>{
 	const socket = io(URL)
 
@@ -40,7 +54,7 @@ onMounted(()=>{
 	navigator.mediaDevices.getUserMedia({
 		audio: true
 	}).then((stream) => {
-		console.log(stream);
+		userStream.value = stream
 		addStream(myAudio, stream, audio)
 
 		myPeer.on('call', (call) => {
