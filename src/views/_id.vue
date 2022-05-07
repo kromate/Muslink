@@ -2,12 +2,13 @@
 	<default-layout>
 		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="audioGrid" ref="audio" >
 
-			<div class=" bg-slate-800 rounded-md p-2" v-for="n in 10" :key="n">
+			<!-- <div class=" bg-slate-800 rounded-md p-2" v-for="n in 10" :key="n">
 				<img src="../assets/avatar.png" alt="avatar" class="w-10 h-10 rounded-full">
 				<div id="controls" class="flex ">
 					<i class="las la-speaker  text-black cursor-pointer" ></i>
 				</div>
-			</div>
+               
+			</div> -->
 
 		
 		</div>
@@ -25,23 +26,25 @@ import {addStream} from '@/composables/useRoom'
 
 const member = ref([])
 const audio = ref(null)
+const URL = 'https://muslink.herokuapp.com/'
 onMounted(()=>{
-	const socket = io('http://localhost:9000/')
+	const socket = io(URL)
 
 	const myPeer = new Peer()
-	const myVideo = document.createElement('audio')
+	const myAudio = document.createElement('audio')
+	myAudio.muted = true
 	const ROOM_ID = useRoute().params.id
 	const peers = {}
 	navigator.mediaDevices.getUserMedia({
 		audio: true
 	}).then((stream) => {
-		addStream(myVideo, stream, audio)
+		addStream(myAudio, stream, audio)
 
 		myPeer.on('call', (call) => {
 			call.answer(stream)
 			const audio = document.createElement('audio')
-			call.on('stream', (userVideoStream) => {
-				addStream(audio, userVideoStream, audio)
+			call.on('stream', (userAudioStream) => {
+				addStream(audio, userAudioStream, audio)
 			})
 		})
 
@@ -61,8 +64,8 @@ onMounted(()=>{
 	function connectToNewUser(userId, stream) {
 		const call = myPeer.call(userId, stream)
 		const audio = document.createElement('audio')
-		call.on('stream', (userVideoStream) => {
-			addStream(audio, userVideoStream, audio)
+		call.on('stream', (userAudioStream) => {
+			addStream(audio, userAudioStream, audio)
 		})
 		call.on('close', () => {
 			audio.remove()
