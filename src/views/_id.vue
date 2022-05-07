@@ -26,8 +26,8 @@ import {addStream, allowMic, userStream} from '@/composables/useRoom'
 import { useLoading } from '@/composables/useNotification'
 
 const audioRef = ref(null)
-// const URL = 'https://muslink.herokuapp.com/'
-const URL = 'http://localhost:9000/'
+const URL = 'https://muslink.herokuapp.com/'
+// const URL = 'http://localhost:9000/'
 
 const toggleMic = ()=>{
 	const audioTrack = userStream.value.getTracks().find((track) => track.kind === 'audio')
@@ -53,19 +53,22 @@ onMounted(()=>{
 	navigator.mediaDevices.getUserMedia({
 		audio: true
 	}).then((stream) => {
+		useLoading().closeLoading()
 		userStream.value = stream
 		addStream(myAudio, stream, audioRef, true)
 
 		myPeer.on('call', (call) => {
+		
 			call.answer(stream)
 			const audio = document.createElement('audio')
 			call.on('stream', (userAudioStream) => {
-				useLoading().closeLoading()
+				
 				addStream(audio, userAudioStream, audioRef)
 			})
 		})
 
 		socket.on('user-connected', (userId) => {
+			
 			connectToNewUser(userId, stream) 
 		})
 	})
