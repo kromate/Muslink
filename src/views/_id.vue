@@ -1,14 +1,14 @@
 <template>
 	<default-layout>
-		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="audioGrid" ref="audio" >
+		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="audioGrid" ref="audioRef" >
 
-			<div class=" bg-[#3c4043] text-white rounded-md p-4 min-w-[234px] h-[132px] flex flex-col justify-center items-center relative " v-for="n in 10" :key="n">
+			<!-- <div class=" bg-[#3c4043] text-white rounded-md p-4 min-w-[234px] h-[132px] flex flex-col justify-center items-center relative " v-for="n in 10" :key="n">
 				<img src ='../assets/avatar.png' alt="avatar" class="w-20 h-20 rounded-full" >
 				<div id="controls" class="flex mt-4 text-2xl text-white px-3 justify-between">
 					<i :class="[`las la-${allowMic ? 'microphone' :'microphone-slash'}`, 'cursor-pointer absolute bg-slate-600 p-2 rounded-full top-3 right-3']" @click="toggleMic"> </i>
 
 				</div>
-			</div>
+			</div> -->
 
 		
 		</div>
@@ -22,12 +22,9 @@ import { onMounted, ref } from 'vue'
 import {io} from 'socket.io-client'
 import Peer from 'peerjs'
 import { useRoute } from 'vue-router'
-import {addStream} from '@/composables/useRoom'
+import {addStream, allowMic, userStream} from '@/composables/useRoom'
 
-const member = ref([])
-const audio = ref(null)
-const allowMic = ref(true)
-const userStream = ref()
+const audioRef = ref(null)
 // const URL = 'https://muslink.herokuapp.com/'
 const URL = 'http://localhost:9000/'
 
@@ -55,13 +52,13 @@ onMounted(()=>{
 		audio: true
 	}).then((stream) => {
 		userStream.value = stream
-		addStream(myAudio, stream, audio)
+		addStream(myAudio, stream, audioRef, true)
 
 		myPeer.on('call', (call) => {
 			call.answer(stream)
 			const audio = document.createElement('audio')
 			call.on('stream', (userAudioStream) => {
-				addStream(audio, userAudioStream, audio)
+				addStream(audio, userAudioStream, audioRef)
 			})
 		})
 
@@ -82,7 +79,7 @@ onMounted(()=>{
 		const call = myPeer.call(userId, stream)
 		const audio = document.createElement('audio')
 		call.on('stream', (userAudioStream) => {
-			addStream(audio, userAudioStream, audio)
+			addStream(audio, userAudioStream, audioRef)
 		})
 		call.on('close', () => {
 			audio.remove()
