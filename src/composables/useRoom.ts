@@ -13,9 +13,9 @@ export const addStream = async (audio, stream, ref) => {
                 <i class="las la-microphone cursor-pointer bg-"></i>
             </div>
     </div>`
-    console.log(ref.value)
-    ref.value.innerHTML = audioDiv
 
-    console.log(ref.value)
+    // ref.value.innerHTML = audioDiv
+
+
 }
 
