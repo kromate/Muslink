@@ -23,6 +23,7 @@ import {io} from 'socket.io-client'
 import Peer from 'peerjs'
 import { useRoute } from 'vue-router'
 import {addStream, allowMic, userStream} from '@/composables/useRoom'
+import { useLoading } from '@/composables/useNotification'
 
 const audioRef = ref(null)
 // const URL = 'https://muslink.herokuapp.com/'
@@ -41,6 +42,7 @@ const toggleMic = ()=>{
 }
 
 onMounted(()=>{
+	useLoading().openLoading('connecting')
 	const socket = io(URL)
 
 	const myPeer = new Peer()
@@ -58,6 +60,7 @@ onMounted(()=>{
 			call.answer(stream)
 			const audio = document.createElement('audio')
 			call.on('stream', (userAudioStream) => {
+				useLoading().closeLoading()
 				addStream(audio, userAudioStream, audioRef)
 			})
 		})
