@@ -25,7 +25,7 @@
 					
 					</div>
 
-					<button class="btn bg-primary text-white self-end px-7 min-w-[140px] mt-5  text-sm !py-3" :disabled="false">
+					<button class="btn px-7 mt-5  text-sm !py-3 ml-auto" :disabled="false">
 						<span v-if="true"> Submit</span>  <Spinner v-else  />
 					</button>
 				</form>
