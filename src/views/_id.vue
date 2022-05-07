@@ -2,12 +2,11 @@
 	<default-layout>
 		<div class="flex gap-4 p-4 flex-wrap justify-center items-center" id="audioGrid" ref="audio" >
 
-			<div class=" bg-[#3c4043] text-white rounded-md p-4 min-w-[234px] h-[132px]" v-for="n in 10" :key="n">
+			<div class=" bg-[#3c4043] text-white rounded-md p-4 min-w-[234px] h-[132px] flex flex-col justify-center items-center relative " v-for="n in 10" :key="n">
 				<img src ='../assets/avatar.png' alt="avatar" class="w-20 h-20 rounded-full" >
 				<div id="controls" class="flex mt-4 text-2xl text-white px-3 justify-between">
-					<i class="las la-volume-up  cursor-pointer"> </i>
+					<i class="las la-microphone  cursor-pointer absolute bg-slate-600 p-2 rounded-full top-3 right-3"> </i>
 
-					<i class="las la-microphone cursor-pointer bg-"></i>
 				</div>
 			</div>
 
@@ -27,7 +26,8 @@ import {addStream} from '@/composables/useRoom'
 
 const member = ref([])
 const audio = ref(null)
-const URL = 'https://muslink.herokuapp.com/'
+// const URL = 'https://muslink.herokuapp.com/'
+const URL = 'http://localhost:9000/'
 onMounted(()=>{
 	const socket = io(URL)
 
